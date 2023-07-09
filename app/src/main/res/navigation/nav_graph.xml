@@ -26,6 +26,7 @@
             app:exitAnim="@anim/to_down"
             app:popEnterAnim="@anim/from_down"
             app:popExitAnim="@anim/to_up"
+            app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_welcomeFragment_to_BMIFragment"
@@ -40,7 +41,8 @@
             app:enterAnim="@anim/from_down"
             app:exitAnim="@anim/to_up"
             app:popEnterAnim="@anim/from_up"
-            app:popExitAnim="@anim/to_down" />
+            app:popExitAnim="@anim/to_down"
+            app:popUpTo="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -59,7 +61,7 @@
     <fragment
         android:id="@+id/finishFragment"
         android:name="com.hfad.virtualmurabbiy.fragments.FinishFragment"
-        android:label="fragment_finish"
+        android:label="Mashqlar yaquniga yetdi"
         tools:layout="@layout/fragment_finish" >
         <action
             android:id="@+id/action_finishFragment_to_welcomeFragment"
@@ -73,11 +75,11 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.hfad.virtualmurabbiy.fragments.HistoryFragment"
-        android:label="fragment_history"
+        android:label="Yakunlangan mashqlar tarihi"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.hfad.virtualmurabbiy.fragments.InfoFragment"
-        android:label="fragment_info"
+        android:label="Ilova haqida"
         tools:layout="@layout/fragment_info" />
 </navigation>

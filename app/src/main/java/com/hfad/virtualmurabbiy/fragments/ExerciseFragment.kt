@@ -1,7 +1,11 @@
 package com.hfad.virtualmurabbiy.fragments
 
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +17,9 @@ import com.hfad.virtualmurabbiy.databinding.FragmentExerciseBinding
 import com.hfad.virtualmurabbiy.manager.Constants
 import com.hfad.virtualmurabbiy.manager.ExerciseModel
 import com.hfad.virtualmurabbiy.manager.ExerciseStatusAdapter
+import java.util.*
 
-class ExerciseFragment : Fragment() {
+class ExerciseFragment : Fragment(), TextToSpeech.OnInitListener {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
     private val adapter: ExerciseStatusAdapter by lazy { ExerciseStatusAdapter() }
@@ -25,11 +30,12 @@ class ExerciseFragment : Fragment() {
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
     private var restTimeDuration: Long = 1
-
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimeDuration: Long = 1
+    private var exerciseTimeDuration: Long = 3
 
+    private lateinit var tts: TextToSpeech
+    private var player: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +45,20 @@ class ExerciseFragment : Fragment() {
         exerciseList = Constants.defaultExerciseList()
         setUpRestView()
         showRecyclerView()
+        tts = TextToSpeech(context, this)
         return binding.root
     }
 
     private fun setUpRestView() {
-        //Sound qo'sh//
+        try {
+            val soundURI =
+                Uri.parse("android.resource://com.hfad.virtualmurabbiy/" + R.raw.app_src_main_res_raw_press_start)
+            player = MediaPlayer.create(requireContext(), soundURI)
+            player?.isLooping = false
+            player?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         binding.flRestView.visibility = View.VISIBLE
         binding.tvTitle.visibility = View.VISIBLE
@@ -95,7 +110,7 @@ class ExerciseFragment : Fragment() {
             exerciseProgress = 0
         }
 
-        //gapirtir//
+        speakOut(exerciseList[currentExercisePosition].getName())
         binding.tvImage.setImageResource(exerciseList[currentExercisePosition].getImage())
         binding.tvCurrentExerciseName.text = exerciseList[currentExercisePosition].getName()
         setExerciseProgressBar()
@@ -134,9 +149,12 @@ class ExerciseFragment : Fragment() {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
-        //if tts
+        tts.stop()
+        tts.shutdown()
 
-        //if player
+        if (player != null){
+            player!!.stop()
+        }
 
         _binding = null
     }
@@ -147,6 +165,21 @@ class ExerciseFragment : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter.setData(exerciseList)
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language specified is not supported!")
+            }
+        } else {
+            Log.e("TTS", "Initialization failed!")
+        }
+    }
+
+    private fun speakOut(text: String) {
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
 }

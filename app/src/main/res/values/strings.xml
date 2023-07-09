@@ -3,5 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bmi">BMI</string>
+    <string name="about">\tVirtual fitnes murabbiyi ilovasiga xush kelibsiz! Ushbu ajoyib vosita fitnes maqsadlaringizga erishish va umumiy farovonligingizni yaxshilash uchun mo\'ljallangan.
+\n\tVirtual fitnes murabbiydan foydalanish orqali siz kuch-quvvatni oshirish, yurak-qon tomir salomatligini yaxshilash, moslashuvchanlikni oshirish va energiya darajasini oshirish kabi muntazam jismoniy faoliyatning afzalliklarini his qilasiz. \n\tUshbu fitnes sarguzashtini boshlaganingizda motivatsiyani saqlang va muvaffaqiyatingizni kuzatib boring.</string>
     <string name="information">\tTana vazni indeksi (Ingliz tilida BMI) - bu odamning vazni va uning bo\'yi o\'rtasidagi mutanosiblik darajasini baholashga imkon beruvchi qiymat va shu bilan bilvosita massani Yetarli emas, Normal yoki Ortiqcha vaznga egaligi haqida bilish mumkin</string>
 </resources>
