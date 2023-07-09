@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Virtual Murabbiy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bmi">BMI</string>
+    <string name="information">\tTana vazni indeksi (Ingliz tilida BMI) - bu odamning vazni va uning bo\'yi o\'rtasidagi mutanosiblik darajasini baholashga imkon beruvchi qiymat va shu bilan bilvosita massani Yetarli emas, Normal yoki Ortiqcha vaznga egaligi haqida bilish mumkin</string>
+</resources>
