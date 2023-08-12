@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hfad.virtualmurabbiy.databinding.FragmentBmiBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -33,6 +35,11 @@ class BMIFragment : Fragment() {
         binding.btnCalculateUnits.setOnClickListener {
             calculateUnits()
         }
+
+        MobileAds.initialize(requireContext())
+        val adRequest = AdRequest.Builder().build()
+        binding.adView3.loadAd(adRequest)
+        return binding.root
 
         return binding.root
     }

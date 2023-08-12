@@ -1,9 +1,11 @@
 package com.hfad.virtualmurabbiy.fragments
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.PowerManager
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +14,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hfad.virtualmurabbiy.R
 import com.hfad.virtualmurabbiy.databinding.FragmentExerciseBinding
 import com.hfad.virtualmurabbiy.manager.Constants
@@ -29,10 +33,13 @@ class ExerciseFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
-    private var restTimeDuration: Long = 1
+    private var restTimeDuration: Long = 10
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimeDuration: Long = 3
+    private var exerciseTimeDuration: Long = 30
+
+    private lateinit var powerManager: PowerManager
+    private lateinit var wakeLock: PowerManager.WakeLock
 
     private lateinit var tts: TextToSpeech
     private var player: MediaPlayer? = null
@@ -46,6 +53,19 @@ class ExerciseFragment : Fragment(), TextToSpeech.OnInitListener {
         setUpRestView()
         showRecyclerView()
         tts = TextToSpeech(context, this)
+
+        powerManager = requireContext().getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(
+            PowerManager.SCREEN_BRIGHT_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+            "ExerciseFragment::WakeLockTag"
+        )
+
+
+        MobileAds.initialize(requireContext())
+        val adRequest = AdRequest.Builder().build()
+        binding.adView4.loadAd(adRequest)
+        return binding.root
+
         return binding.root
     }
 
@@ -152,7 +172,7 @@ class ExerciseFragment : Fragment(), TextToSpeech.OnInitListener {
         tts.stop()
         tts.shutdown()
 
-        if (player != null){
+        if (player != null) {
             player!!.stop()
         }
 
@@ -180,6 +200,16 @@ class ExerciseFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun speakOut(text: String) {
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        wakeLock.acquire()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        wakeLock.release()
     }
 
 }

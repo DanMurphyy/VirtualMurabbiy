@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hfad.virtualmurabbiy.R
 import com.hfad.virtualmurabbiy.databinding.FragmentInfoBinding
 
@@ -24,6 +26,10 @@ class InfoFragment : Fragment() {
         gif2()
         gif1()
         gif()
+
+        MobileAds.initialize(requireContext())
+        val adRequest = AdRequest.Builder().build()
+        binding.adView1.loadAd(adRequest)
 
         return binding.root
     }

@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hfad.virtualmurabbiy.data.HistoryAdapter
 import com.hfad.virtualmurabbiy.data.HistoryData
 import com.hfad.virtualmurabbiy.data.HistoryViewModel
@@ -42,6 +44,10 @@ class HistoryFragment : Fragment() {
             confirmRemoval()
         }
 
+
+        MobileAds.initialize(requireContext())
+        val adRequest = AdRequest.Builder().build()
+        binding.adView2.loadAd(adRequest)
         return binding.root
     }
 

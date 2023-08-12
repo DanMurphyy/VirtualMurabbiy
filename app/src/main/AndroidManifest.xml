@@ -5,9 +5,11 @@
 
     <queries>
         <intent>
-            <action android:name="android.intent.action.TTS_SERVICE"/>
+            <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
     </queries>
+
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualMurabbiy"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8558811277281829~1145359113" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

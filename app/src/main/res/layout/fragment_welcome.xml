@@ -11,8 +11,10 @@
         android:id="@+id/logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="110dp"
         android:contentDescription="TODO"
         android:src="@drawable/pngwing"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +25,13 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/fl_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/logo"
         app:layout_constraintVertical_bias="0.44">
 
         <ImageView
@@ -70,7 +73,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/fl_history"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_start">
+        app:layout_constraintTop_toBottomOf="@+id/fl_start"
+        app:layout_constraintVertical_bias="0.40">
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,7 +106,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fl_bmi"
-        app:layout_constraintTop_toBottomOf="@+id/fl_start">
+        app:layout_constraintTop_toBottomOf="@+id/fl_start"
+        app:layout_constraintVertical_bias="0.40">
 
         <ImageView
             android:layout_width="50dp"
@@ -121,6 +126,19 @@
         app:layout_constraintEnd_toEndOf="@id/fl_history"
         app:layout_constraintStart_toStartOf="@+id/fl_history"
         app:layout_constraintTop_toBottomOf="@id/fl_history" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-8558811277281829/7519195773"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.AdView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
